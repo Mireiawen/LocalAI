@@ -288,6 +288,7 @@ test-extra: prepare-test-extra
 	$(MAKE) -C backend/python/vllm test
 
 DOCKER_IMAGE?=local-ai
+DOCKER_BACKEND_IMAGE?=local-ai-backend
 DOCKER_AIO_IMAGE?=local-ai-aio
 IMAGE_TYPE?=core
 BASE_IMAGE?=ubuntu:22.04
@@ -409,25 +410,25 @@ backend-images:
 	mkdir -p backend-images
 
 docker-build-llama-cpp:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:llama-cpp -f backend/Dockerfile.llama-cpp .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):llama-cpp -f backend/Dockerfile.llama-cpp .
 
 docker-build-bark-cpp:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:bark-cpp -f backend/Dockerfile.golang --build-arg BACKEND=bark-cpp .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):bark-cpp -f backend/Dockerfile.golang --build-arg BACKEND=bark-cpp .
 
 docker-build-piper:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:piper -f backend/Dockerfile.golang --build-arg BACKEND=piper .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):piper -f backend/Dockerfile.golang --build-arg BACKEND=piper .
 
 docker-build-local-store:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:local-store -f backend/Dockerfile.golang --build-arg BACKEND=local-store .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):local-store -f backend/Dockerfile.golang --build-arg BACKEND=local-store .
 
 docker-build-huggingface:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:huggingface -f backend/Dockerfile.golang --build-arg BACKEND=huggingface .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):huggingface -f backend/Dockerfile.golang --build-arg BACKEND=huggingface .
 
 docker-build-rfdetr:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:rfdetr -f backend/Dockerfile.python --build-arg BACKEND=rfdetr ./backend
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):rfdetr -f backend/Dockerfile.python --build-arg BACKEND=rfdetr ./backend
 
 docker-build-kitten-tts:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:kitten-tts -f backend/Dockerfile.python --build-arg BACKEND=kitten-tts ./backend
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):kitten-tts -f backend/Dockerfile.python --build-arg BACKEND=kitten-tts ./backend
 
 docker-save-kitten-tts: backend-images
 	docker save local-ai-backend:kitten-tts -o backend-images/kitten-tts.tar
@@ -436,13 +437,13 @@ docker-save-chatterbox: backend-images
 	docker save local-ai-backend:chatterbox -o backend-images/chatterbox.tar
 
 docker-build-neutts:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:neutts -f backend/Dockerfile.python --build-arg BACKEND=neutts ./backend
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):neutts -f backend/Dockerfile.python --build-arg BACKEND=neutts ./backend
 
 docker-save-neutts: backend-images
 	docker save local-ai-backend:neutts -o backend-images/neutts.tar
 
 docker-build-kokoro:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:kokoro -f backend/Dockerfile.python --build-arg BACKEND=kokoro ./backend
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):kokoro -f backend/Dockerfile.python --build-arg BACKEND=kokoro ./backend
 
 docker-save-kokoro: backend-images
 	docker save local-ai-backend:kokoro -o backend-images/kokoro.tar
@@ -457,7 +458,7 @@ docker-save-local-store: backend-images
 	docker save local-ai-backend:local-store -o backend-images/local-store.tar
 
 docker-build-silero-vad:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:silero-vad -f backend/Dockerfile.golang --build-arg BACKEND=silero-vad .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):silero-vad -f backend/Dockerfile.golang --build-arg BACKEND=silero-vad .
 
 docker-save-silero-vad: backend-images
 	docker save local-ai-backend:silero-vad -o backend-images/silero-vad.tar
@@ -472,46 +473,46 @@ docker-save-bark-cpp: backend-images
 	docker save local-ai-backend:bark-cpp -o backend-images/bark-cpp.tar
 
 docker-build-stablediffusion-ggml:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:stablediffusion-ggml -f backend/Dockerfile.golang --build-arg BACKEND=stablediffusion-ggml .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):stablediffusion-ggml -f backend/Dockerfile.golang --build-arg BACKEND=stablediffusion-ggml .
 
 docker-save-stablediffusion-ggml: backend-images
 	docker save local-ai-backend:stablediffusion-ggml -o backend-images/stablediffusion-ggml.tar
 
 docker-build-rerankers:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:rerankers -f backend/Dockerfile.python --build-arg BACKEND=rerankers .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):rerankers -f backend/Dockerfile.python --build-arg BACKEND=rerankers .
 
 docker-build-vllm:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:vllm -f backend/Dockerfile.python --build-arg BACKEND=vllm .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):vllm -f backend/Dockerfile.python --build-arg BACKEND=vllm .
 
 docker-build-transformers:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:transformers -f backend/Dockerfile.python --build-arg BACKEND=transformers .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):transformers -f backend/Dockerfile.python --build-arg BACKEND=transformers .
 
 docker-build-diffusers:
-	docker build --progress=plain --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:diffusers -f backend/Dockerfile.python --build-arg BACKEND=diffusers ./backend
+	docker build --progress=plain --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):diffusers -f backend/Dockerfile.python --build-arg BACKEND=diffusers ./backend
 
 docker-save-diffusers: backend-images
 	docker save local-ai-backend:diffusers -o backend-images/diffusers.tar
 
 docker-build-whisper:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:whisper -f backend/Dockerfile.golang --build-arg BACKEND=whisper  .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):whisper -f backend/Dockerfile.golang --build-arg BACKEND=whisper  .
 
 docker-save-whisper: backend-images
 	docker save local-ai-backend:whisper -o backend-images/whisper.tar
 
 docker-build-faster-whisper:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:faster-whisper -f backend/Dockerfile.python --build-arg BACKEND=faster-whisper .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):faster-whisper -f backend/Dockerfile.python --build-arg BACKEND=faster-whisper .
 
 docker-build-coqui:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:coqui -f backend/Dockerfile.python --build-arg BACKEND=coqui .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):coqui -f backend/Dockerfile.python --build-arg BACKEND=coqui .
 
 docker-build-bark:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:bark -f backend/Dockerfile.python --build-arg BACKEND=bark .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):bark -f backend/Dockerfile.python --build-arg BACKEND=bark .
 
 docker-build-chatterbox:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:chatterbox -f backend/Dockerfile.python --build-arg BACKEND=chatterbox ./backend
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):chatterbox -f backend/Dockerfile.python --build-arg BACKEND=chatterbox ./backend
 
 docker-build-exllama2:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t local-ai-backend:exllama2 -f backend/Dockerfile.python --build-arg BACKEND=exllama2 .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):exllama2 -f backend/Dockerfile.python --build-arg BACKEND=exllama2 .
 
 docker-build-backends: docker-build-llama-cpp docker-build-rerankers docker-build-vllm docker-build-transformers docker-build-diffusers docker-build-kokoro docker-build-faster-whisper docker-build-coqui docker-build-bark docker-build-chatterbox docker-build-exllama2
 
