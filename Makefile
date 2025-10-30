@@ -516,6 +516,71 @@ docker-build-exllama2:
 
 docker-build-backends: docker-build-llama-cpp docker-build-rerankers docker-build-vllm docker-build-transformers docker-build-diffusers docker-build-kokoro docker-build-faster-whisper docker-build-coqui docker-build-bark docker-build-chatterbox docker-build-exllama2
 
+docker-push-llama-cpp: docker-build-llama-cpp
+	docker push $(DOCKER_BACKEND_IMAGE):llama-cpp
+
+docker-push-bark-cpp: docker-build-bark-cpp
+	docker push $(DOCKER_BACKEND_IMAGE):bark-cpp
+
+docker-push-piper: docker-build-piper
+	docker push $(DOCKER_BACKEND_IMAGE):piper
+
+docker-push-local-store: docker-build-local-store
+	docker push $(DOCKER_BACKEND_IMAGE):local-store
+
+docker-push-huggingface: docker-build-huggingface
+	docker push $(DOCKER_BACKEND_IMAGE):huggingface
+
+docker-push-rfdetr: docker-build-rfdetr
+	docker push $(DOCKER_BACKEND_IMAGE):rfdetr
+
+docker-push-kitten-tts: docker-build-kitten-tts
+	docker push $(DOCKER_BACKEND_IMAGE):kitten-tts
+
+docker-push-neutts: docker-build-neutts
+	docker push $(DOCKER_BACKEND_IMAGE):neutts
+
+docker-push-kokoro: docker-build-kokoro
+	docker push $(DOCKER_BACKEND_IMAGE):kokoro
+
+docker-push-silero-vad: docker-build-silero-vad
+	docker push $(DOCKER_BACKEND_IMAGE):silero-vad
+
+docker-push-stablediffusion-ggml: docker-build-stablediffusion-ggml
+	docker push $(DOCKER_BACKEND_IMAGE):stablediffusion-ggml
+
+docker-push-rerankers: docker-build-rerankers
+	docker push $(DOCKER_BACKEND_IMAGE):rerankers
+
+docker-push-vllm: docker-build-vllm
+	docker push $(DOCKER_BACKEND_IMAGE):vllm
+
+docker-push-transformers: docker-build-transformers
+	docker push $(DOCKER_BACKEND_IMAGE):transformers
+
+docker-push-diffusers: docker-build-diffusers
+	docker push $(DOCKER_BACKEND_IMAGE):diffusers
+
+docker-push-whisper: docker-build-whisper
+	docker push $(DOCKER_BACKEND_IMAGE):whisper
+
+docker-push-faster-whisper: docker-build-faster-whisper
+	docker push $(DOCKER_BACKEND_IMAGE):faster-whisper
+
+docker-push-coqui: docker-build-coqui
+	docker push $(DOCKER_BACKEND_IMAGE):coqui
+
+docker-push-bark: docker-build-bark
+	docker push $(DOCKER_BACKEND_IMAGE):bark
+
+docker-push-chatterbox: docker-build-chatterbox
+	docker push $(DOCKER_BACKEND_IMAGE):chatterbox
+
+docker-push-exllama2: docker-build-exllama2
+	docker push $(DOCKER_BACKEND_IMAGE):exllama2
+
+docker-push-backends: docker-push-llama-cpp docker-push-rerankers docker-push-vllm docker-push-transformers docker-push-diffusers docker-push-kokoro docker-push-faster-whisper docker-push-coqui docker-push-bark docker-push-chatterbox docker-push-exllama2
+
 ########################################################
 ### END Backends
 ########################################################
