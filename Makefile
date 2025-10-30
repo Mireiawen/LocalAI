@@ -479,13 +479,13 @@ docker-save-stablediffusion-ggml: backend-images
 	docker save local-ai-backend:stablediffusion-ggml -o backend-images/stablediffusion-ggml.tar
 
 docker-build-rerankers:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):rerankers -f backend/Dockerfile.python --build-arg BACKEND=rerankers .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):rerankers -f backend/Dockerfile.python --build-arg BACKEND=rerankers ./backend
 
 docker-build-vllm:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):vllm -f backend/Dockerfile.python --build-arg BACKEND=vllm .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):vllm -f backend/Dockerfile.python --build-arg BACKEND=vllm ./backend
 
 docker-build-transformers:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):transformers -f backend/Dockerfile.python --build-arg BACKEND=transformers .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):transformers -f backend/Dockerfile.python --build-arg BACKEND=transformers ./backend
 
 docker-build-diffusers:
 	docker build --progress=plain --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):diffusers -f backend/Dockerfile.python --build-arg BACKEND=diffusers ./backend
@@ -500,19 +500,19 @@ docker-save-whisper: backend-images
 	docker save local-ai-backend:whisper -o backend-images/whisper.tar
 
 docker-build-faster-whisper:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):faster-whisper -f backend/Dockerfile.python --build-arg BACKEND=faster-whisper .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):faster-whisper -f backend/Dockerfile.python --build-arg BACKEND=faster-whisper ./backend
 
 docker-build-coqui:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):coqui -f backend/Dockerfile.python --build-arg BACKEND=coqui .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):coqui -f backend/Dockerfile.python --build-arg BACKEND=coqui ./backend
 
 docker-build-bark:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):bark -f backend/Dockerfile.python --build-arg BACKEND=bark .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):bark -f backend/Dockerfile.python --build-arg BACKEND=bark ./backend
 
 docker-build-chatterbox:
 	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):chatterbox -f backend/Dockerfile.python --build-arg BACKEND=chatterbox ./backend
 
 docker-build-exllama2:
-	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):exllama2 -f backend/Dockerfile.python --build-arg BACKEND=exllama2 .
+	docker build --build-arg BUILD_TYPE=$(BUILD_TYPE) --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(DOCKER_BACKEND_IMAGE):exllama2 -f backend/Dockerfile.python --build-arg BACKEND=exllama2 ./backend
 
 docker-build-backends: docker-build-llama-cpp docker-build-rerankers docker-build-vllm docker-build-transformers docker-build-diffusers docker-build-kokoro docker-build-faster-whisper docker-build-coqui docker-build-bark docker-build-chatterbox docker-build-exllama2
 
