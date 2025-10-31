@@ -579,7 +579,7 @@ docker-push-chatterbox: docker-build-chatterbox
 docker-push-exllama2: docker-build-exllama2
 	docker push $(DOCKER_BACKEND_IMAGE):exllama2
 
-docker-push-backends: docker-push-llama-cpp docker-push-rerankers docker-push-vllm docker-push-transformers docker-push-diffusers docker-push-kokoro docker-push-faster-whisper docker-push-coqui docker-push-bark docker-push-chatterbox docker-push-exllama2
+docker-push-backends: docker-push-llama-cpp docker-push-rerankers docker-push-vllm docker-push-transformers docker-push-diffusers docker-push-kokoro docker-push-faster-whisper docker-push-coqui docker-push-bark docker-push-bark-cpp docker-push-chatterbox docker-push-exllama2 docker-push-piper docker-push-local-store docker-push-huggingface docker-push-rfdetr docker-push-kitten-tts docker-push-neutts docker-push-silero-vad
 
 ########################################################
 ### END Backends
